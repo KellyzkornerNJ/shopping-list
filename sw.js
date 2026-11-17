@@ -1,6 +1,6 @@
 // Shopping List service worker: keeps the app itself available, always
 // checking for a newer version first. List data always comes live from Supabase.
-const CACHE = "shopping-list-v1";
+const CACHE = "shopping-list-v3";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", e => {

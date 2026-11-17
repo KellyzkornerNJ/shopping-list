@@ -15,21 +15,21 @@
   :root {
     --bg: #f4f1ea; --card: #ffffff; --ink: #24302a; --muted: #6b766f;
     --accent: #2f6b4f; --accent-ink: #ffffff; --line: #e2ddd2; --danger: #b3412f;
-    --radius: 14px;
+    --tag: #e6efe9; --tag-ink: #2f6b4f; --radius: 14px;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--bg); color: var(--ink);
     font: 17px/1.4 -apple-system, "Segoe UI", Roboto, system-ui, sans-serif; }
   body { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
   .wrap { max-width: 760px; margin: 0 auto; padding: 16px; }
-  header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   header h1 { font-size: 1.5rem; margin: 0; flex: 1; }
   button { font: inherit; border: 0; border-radius: 10px; padding: 10px 14px; cursor: pointer;
     background: var(--accent); color: var(--accent-ink); }
   button.plain { background: transparent; color: var(--accent); padding: 8px 10px; }
   button.danger { background: transparent; color: var(--danger); }
   button:disabled { opacity: .5; }
-  input[type=text], input[type=email], input[type=password], textarea {
+  input[type=text], input[type=email], input[type=password], textarea, select {
     font: inherit; width: 100%; padding: 11px 12px; border: 1px solid var(--line);
     border-radius: 10px; background: #fff; color: var(--ink); }
   textarea { resize: vertical; min-height: 60px; }
@@ -43,13 +43,37 @@
   #signin button { width: 100%; margin-top: 18px; }
   .msg { color: var(--danger); font-size: .9rem; margin-top: 10px; min-height: 1.2em; }
 
+  /* List tabs */
+  .tabs { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 10px; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: 0 0 auto; background: var(--card); color: var(--ink); border: 1px solid var(--line);
+    padding: 8px 14px; border-radius: 999px; white-space: nowrap; }
+  .tab.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .tab .cnt { opacity: .7; font-size: .85em; margin-left: 4px; }
+  .listbar { display: flex; align-items: center; justify-content: space-between; margin: 0 4px 10px; }
+  .listbar h2 { margin: 0; font-size: 1.15rem; }
+  .listbar .btns { display: flex; gap: 2px; }
+
   /* Add bar */
   .addbar { display: flex; gap: 8px; padding: 10px; margin-bottom: 14px; }
   .addbar input { flex: 1; }
 
+  /* Tag filter */
+  .tagfilter { padding: 12px; margin-bottom: 14px; }
+  .tagfilter .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tagfilter .opts { display: flex; align-items: center; justify-content: space-between; margin-top: 10px;
+    font-size: .9rem; color: var(--muted); }
+  .chip { background: var(--tag); color: var(--tag-ink); border-radius: 999px; padding: 6px 12px;
+    font-size: .9rem; border: 1px solid transparent; }
+  .chip.on { background: var(--accent); color: var(--accent-ink); }
+  .switch { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .switch input { width: 18px; height: 18px; }
+
   /* List */
   .section-title { display: flex; align-items: center; justify-content: space-between;
     color: var(--muted); font-size: .9rem; margin: 18px 4px 6px; }
+  .group-title { color: var(--muted); font-size: .85rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .04em; margin: 16px 4px 6px; }
   ul.items { list-style: none; margin: 0; padding: 0; }
   li.item { margin-bottom: 8px; }
   .row { display: flex; align-items: center; gap: 12px; padding: 12px 12px; }
@@ -60,10 +84,18 @@
   .name { flex: 1; min-width: 0; cursor: pointer; }
   .name .t { word-wrap: break-word; }
   .name .n { color: var(--muted); font-size: .85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .name .tg { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .name .tg span { background: var(--tag); color: var(--tag-ink); border-radius: 999px; padding: 1px 8px; font-size: .75rem; }
   li.done .name .t { text-decoration: line-through; color: var(--muted); }
-  .badge { font-size: .8rem; color: var(--muted); white-space: nowrap; }
+  .badge { font-size: .8rem; color: var(--muted); white-space: nowrap; text-align: right; }
   .details { border-top: 1px solid var(--line); padding: 12px; display: grid; gap: 10px; }
   .details label { font-size: .85rem; color: var(--muted); }
+  .tagedit { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; border: 1px solid var(--line);
+    border-radius: 10px; padding: 6px; background: #fff; }
+  .tagedit .chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 6px 4px 10px; }
+  .tagedit .chip button { background: transparent; color: var(--tag-ink); padding: 0 4px; font-size: .9rem; }
+  .tagedit input { flex: 1; min-width: 120px; border: 0; padding: 6px; }
+  .tagedit input:focus { outline: none; }
   .thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
   .thumb { position: relative; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #eee;
     display: grid; place-items: center; cursor: pointer; border: 1px solid var(--line); }
@@ -112,19 +144,45 @@
     <button class="plain" id="signoutBtn">Sign Out</button>
   </header>
 
-  <form class="addbar card" id="addForm">
-    <input type="text" id="newItem" placeholder="Add An Item…" autocomplete="off" enterkeyhint="done">
-    <button type="submit">Add</button>
-  </form>
+  <nav class="tabs" id="tabs"></nav>
 
-  <ul class="items" id="todoList"></ul>
-  <div class="empty hidden" id="emptyMsg">Nothing on the list yet.</div>
+  <!-- One list -->
+  <section id="listView">
+    <div class="listbar">
+      <h2 id="listTitle"></h2>
+      <div class="btns">
+        <button class="plain" id="newListBtn">New List</button>
+        <button class="plain" id="renameListBtn">Rename</button>
+        <button class="danger" id="deleteListBtn">Delete</button>
+      </div>
+    </div>
 
-  <div class="section-title hidden" id="doneTitle">
-    <span id="doneCount">Checked Off</span>
-    <button class="danger" id="clearDoneBtn">Clear Checked</button>
-  </div>
-  <ul class="items" id="doneList"></ul>
+    <form class="addbar card" id="addForm">
+      <input type="text" id="newItem" placeholder="Add An Item…" autocomplete="off" enterkeyhint="done">
+      <button type="submit">Add</button>
+    </form>
+
+    <ul class="items" id="todoList"></ul>
+    <div class="empty hidden" id="emptyMsg">Nothing on this list yet.</div>
+
+    <div class="section-title hidden" id="doneTitle">
+      <span id="doneCount">Checked Off</span>
+      <button class="danger" id="clearDoneBtn">Clear Checked</button>
+    </div>
+    <ul class="items" id="doneList"></ul>
+  </section>
+
+  <!-- All lists / tags -->
+  <section id="tagView" class="hidden">
+    <div class="tagfilter card">
+      <div class="chips" id="tagChips"></div>
+      <div class="opts">
+        <label class="switch"><input type="checkbox" id="matchAll"> Match All Selected Tags</label>
+        <button class="plain" id="clearTagsBtn">Clear</button>
+      </div>
+    </div>
+    <div id="tagResults"></div>
+  </section>
 </div>
 
 <!-- Image viewer -->
@@ -148,12 +206,16 @@ const BUCKET = "attachments";
 const MAX_BYTES = 10 * 1024 * 1024;   // 10 MB cap per file
 const MAX_IMAGE_PX = 1600;            // photos shrink to this on the long side
 const JPEG_QUALITY = 0.82;
+const ALL = "__all__";                // id of the All / Tags tab
 
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ---- State ----
+let lists = [];                 // rows from lists
 let items = [];                 // rows from items
 let atts = {};                  // item_id -> [attachment rows]
+let currentList = loadPref("currentList", null);
+const selectedTags = new Set(loadPref("selectedTags", []));
 const open = new Set();         // item ids with details showing
 const urlCache = {};            // path -> {url, exp}
 let pendingRender = false;
@@ -162,6 +224,13 @@ let channel = null;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const low = s => String(s).toLowerCase();
+
+// Remembered per device (wrapped in try: some browsers block storage)
+function loadPref(key, def) {
+  try { const v = localStorage.getItem("sl_" + key); return v === null ? def : JSON.parse(v); } catch { return def; }
+}
+function savePref(key, val) { try { localStorage.setItem("sl_" + key, JSON.stringify(val)); } catch {} }
 
 function toast(text, ms = 2500) {
   const t = document.createElement("div");
@@ -211,35 +280,39 @@ sb.auth.onAuthStateChange((event, session) => {
 // ---- Loading ----
 async function loadAll() {
   setStatus("Loading…");
-  const [r1, r2] = await Promise.all([
+  const [r0, r1, r2] = await Promise.all([
+    sb.from("lists").select("*").order("sort_order").order("created_at"),
     sb.from("items").select("*").order("created_at", { ascending: true }),
     sb.from("attachments").select("*").order("created_at", { ascending: true })
   ]);
-  if (r1.error || r2.error) {
+  const err = r0.error || r1.error || r2.error;
+  if (err) {
     setStatus("Offline?");
-    toast("Couldn't load the list: " + (r1.error || r2.error).message, 4000);
+    toast("Couldn't load: " + err.message, 4000);
     return;
   }
-  items = r1.data;
+  lists = r0.data;
+  items = r1.data.map(i => ({ ...i, tags: i.tags || [] }));
   atts = {};
   for (const a of r2.data) (atts[a.item_id] ||= []).push(a);
+  if (currentList !== ALL && !lists.some(l => l.id === currentList)) currentList = lists[0]?.id ?? ALL;
   setStatus("");
   render();
 }
 
-// Live sync: any change on another device reloads the list
+// Live sync: any change on another device reloads
 function startRealtime() {
   if (channel) return;
   let timer = null;
   const reload = () => { clearTimeout(timer); timer = setTimeout(loadAll, 300); };
   channel = sb.channel("list-sync")
+    .on("postgres_changes", { event: "*", schema: "public", table: "lists" }, reload)
     .on("postgres_changes", { event: "*", schema: "public", table: "items" }, reload)
     .on("postgres_changes", { event: "*", schema: "public", table: "attachments" }, reload)
     .subscribe();
 }
 function stopRealtime() { if (channel) { sb.removeChannel(channel); channel = null; } }
 
-// Refresh when the app comes back to the front (phones pause background tabs)
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible" && !$("app").classList.contains("hidden")) loadAll();
 });
@@ -254,22 +327,85 @@ function render() {
     pendingRender = true; return;
   }
   pendingRender = false;
+  savePref("currentList", currentList);
 
-  const todo = items.filter(i => !i.checked);
-  const done = items.filter(i => i.checked);
-  $("todoList").innerHTML = todo.map(itemHtml).join("");
-  $("doneList").innerHTML = done.map(itemHtml).join("");
-  $("emptyMsg").classList.toggle("hidden", items.length > 0);
-  $("doneTitle").classList.toggle("hidden", done.length === 0);
-  $("doneCount").textContent = `Checked Off (${done.length})`;
+  renderTabs();
+  const isAll = currentList === ALL;
+  $("listView").classList.toggle("hidden", isAll);
+  $("tagView").classList.toggle("hidden", !isAll);
+  if (isAll) renderTagView(); else renderListView();
   loadThumbs();
 }
 
-function itemHtml(i) {
+function renderTabs() {
+  const tabs = lists.map(l => {
+    const n = items.filter(i => i.list_id === l.id && !i.checked).length;
+    return `<button class="tab ${l.id === currentList ? "on" : ""}" data-act="tab" data-id="${l.id}">${esc(l.name)}${n ? `<span class="cnt">${n}</span>` : ""}</button>`;
+  }).join("");
+  // Tags view first so it never scrolls out of sight on a phone
+  $("tabs").innerHTML =
+    `<button class="tab ${currentList === ALL ? "on" : ""}" data-act="tab" data-id="${ALL}">🏷 Tags</button>` + tabs;
+}
+
+function renderListView() {
+  const list = lists.find(l => l.id === currentList);
+  $("listTitle").textContent = list ? list.name : "";
+  const mine = items.filter(i => i.list_id === currentList);
+  const todo = mine.filter(i => !i.checked);
+  const done = mine.filter(i => i.checked);
+  $("todoList").innerHTML = todo.map(i => itemHtml(i, false)).join("");
+  $("doneList").innerHTML = done.map(i => itemHtml(i, false)).join("");
+  $("emptyMsg").classList.toggle("hidden", mine.length > 0);
+  $("doneTitle").classList.toggle("hidden", done.length === 0);
+  $("doneCount").textContent = `Checked Off (${done.length})`;
+}
+
+function allTags() {
+  const map = new Map();   // lowercase -> {name, count}
+  for (const i of items) for (const t of i.tags) {
+    const k = low(t);
+    if (!map.has(k)) map.set(k, { name: t, count: 0 });
+    map.get(k).count++;
+  }
+  return [...map.entries()].sort((a, b) => a[1].name.localeCompare(b[1].name));
+}
+
+function renderTagView() {
+  const tags = allTags();
+  // Forget selected tags that no longer exist anywhere
+  for (const k of [...selectedTags]) if (!tags.some(([kk]) => kk === k)) selectedTags.delete(k);
+  savePref("selectedTags", [...selectedTags]);
+
+  $("tagChips").innerHTML = tags.length
+    ? tags.map(([k, v]) => `<button class="chip ${selectedTags.has(k) ? "on" : ""}" data-act="ftag" data-tag="${esc(k)}">${esc(v.name)} <span class="cnt">${v.count}</span></button>`).join("")
+    : `<span class="status">No tags yet. Open an item and add tags to it.</span>`;
+  $("matchAll").checked = loadPref("matchAll", false);
+
+  const sel = [...selectedTags];
+  const matchAll = $("matchAll").checked;
+  const shown = items.filter(i => {
+    if (!sel.length) return true;
+    const mine = new Set(i.tags.map(low));
+    return matchAll ? sel.every(t => mine.has(t)) : sel.some(t => mine.has(t));
+  });
+
+  let html = "";
+  for (const l of lists) {
+    const group = shown.filter(i => i.list_id === l.id)
+      .sort((a, b) => (a.checked - b.checked));
+    if (!group.length) continue;
+    html += `<div class="group-title">${esc(l.name)}</div><ul class="items">${group.map(i => itemHtml(i, false)).join("")}</ul>`;
+  }
+  $("tagResults").innerHTML = html || `<div class="empty">${sel.length ? "No items with those tags." : "No items yet."}</div>`;
+}
+
+function itemHtml(i, showList) {
   const list = atts[i.id] || [];
   const isOpen = open.has(i.id);
-  const noteLine = i.note ? `<div class="n">${esc(i.note)}</div>` : "";
-  const badge = list.length ? `<span class="badge">📎 ${list.length}</span>` : "";
+  const noteLine = i.note && !isOpen ? `<div class="n">${esc(i.note)}</div>` : "";
+  const tagLine = i.tags.length && !isOpen ? `<div class="tg">${i.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>` : "";
+  const listName = showList ? (lists.find(l => l.id === i.list_id)?.name || "") : "";
+  const badge = (list.length ? `📎 ${list.length}` : "");
   let details = "";
   if (isOpen) {
     const thumbs = list.map(a => {
@@ -280,12 +416,18 @@ function itemHtml(i) {
       return `<div class="thumb" data-act="view" data-att="${a.id}">${inner}
                 <button class="x" data-act="delatt" data-att="${a.id}" title="Remove">✕</button></div>`;
     }).join("");
+    const listOpts = lists.map(l => `<option value="${l.id}" ${l.id === i.list_id ? "selected" : ""}>${esc(l.name)}</option>`).join("");
+    const tagChips = i.tags.map(t => `<span class="chip">${esc(t)}<button data-act="untag" data-id="${i.id}" data-tag="${esc(t)}" title="Remove Tag">✕</button></span>`).join("");
     details = `
       <div class="details">
         <label>Item</label>
         <input type="text" data-edit="name" data-id="${i.id}" value="${esc(i.name)}">
         <label>Note</label>
         <textarea data-edit="note" data-id="${i.id}" placeholder="Size, brand, how many…">${esc(i.note)}</textarea>
+        <label>Tags (Press Enter After Each)</label>
+        <div class="tagedit">${tagChips}<input type="text" data-tagadd="${i.id}" placeholder="Add Tag…" enterkeyhint="done" list="tagSuggest"></div>
+        <label>List</label>
+        <select data-move="${i.id}">${listOpts}</select>
         ${list.length ? `<label>Photos & PDFs</label><div class="thumbs">${thumbs}</div>` : ""}
         <div class="actions">
           <button data-act="attach" data-id="${i.id}">Add Photo / PDF</button>
@@ -297,11 +439,18 @@ function itemHtml(i) {
     <li class="item card ${i.checked ? "done" : ""}" data-id="${i.id}">
       <div class="row">
         <button class="check ${i.checked ? "on" : ""}" data-act="toggle" data-id="${i.id}" aria-label="Check off">${i.checked ? CHECK_SVG : ""}</button>
-        <div class="name" data-act="expand" data-id="${i.id}"><div class="t">${esc(i.name)}</div>${isOpen ? "" : noteLine}</div>
-        ${badge}
+        <div class="name" data-act="expand" data-id="${i.id}"><div class="t">${esc(i.name)}</div>${noteLine}${tagLine}</div>
+        <span class="badge">${esc(listName)}${listName && badge ? "<br>" : ""}${badge}</span>
       </div>
       ${details}
     </li>`;
+}
+
+// Suggestions for the tag box (your existing tags)
+function updateTagSuggest() {
+  let dl = $("tagSuggest");
+  if (!dl) { dl = document.createElement("datalist"); dl.id = "tagSuggest"; document.body.appendChild(dl); }
+  dl.innerHTML = allTags().map(([, v]) => `<option value="${esc(v.name)}">`).join("");
 }
 
 async function signedUrl(path) {
@@ -314,6 +463,7 @@ async function signedUrl(path) {
 }
 
 async function loadThumbs() {
+  updateTagSuggest();
   for (const img of document.querySelectorAll("img[data-path]")) {
     const url = await signedUrl(img.dataset.path);
     if (url) img.src = url;
@@ -324,17 +474,73 @@ document.addEventListener("focusout", () => {
   setTimeout(() => { if (pendingRender) render(); }, 50);
 });
 
-// ---- Actions ----
+// ---- Lists ----
+$("newListBtn").addEventListener("click", async () => {
+  const name = (prompt("Name for the new list:") || "").trim();
+  if (!name) return;
+  const order = Math.max(0, ...lists.map(l => l.sort_order || 0)) + 1;
+  const { data, error } = await sb.from("lists").insert({ name, sort_order: order }).select().single();
+  if (error) { toast("Couldn't add list: " + error.message); return; }
+  lists.push(data); currentList = data.id; render();
+});
+
+$("renameListBtn").addEventListener("click", async () => {
+  const l = lists.find(x => x.id === currentList); if (!l) return;
+  const name = (prompt("Rename list:", l.name) || "").trim();
+  if (!name || name === l.name) return;
+  const { error } = await sb.from("lists").update({ name }).eq("id", l.id);
+  if (error) { toast("Couldn't rename: " + error.message); return; }
+  l.name = name; render();
+});
+
+$("deleteListBtn").addEventListener("click", async () => {
+  const l = lists.find(x => x.id === currentList); if (!l) return;
+  if (lists.length <= 1) { toast("You need at least one list."); return; }
+  const mine = items.filter(i => i.list_id === l.id);
+  const msg = mine.length
+    ? `Delete the "${l.name}" list and its ${mine.length} item(s), including their photos/PDFs? This can't be undone.`
+    : `Delete the empty "${l.name}" list?`;
+  if (!confirm(msg)) return;
+  const paths = mine.flatMap(i => (atts[i.id] || []).map(a => a.path));
+  if (paths.length) await sb.storage.from(BUCKET).remove(paths);
+  const { error } = await sb.from("lists").delete().eq("id", l.id);   // items + attachment rows go with it
+  if (error) { toast("Couldn't delete: " + error.message); return; }
+  currentList = lists.find(x => x.id !== l.id)?.id ?? ALL;
+  await loadAll();
+});
+
+// ---- Item actions ----
 $("addForm").addEventListener("submit", async e => {
   e.preventDefault();
   const name = $("newItem").value.trim();
-  if (!name) return;
+  if (!name || currentList === ALL) return;
   $("newItem").value = "";
-  const { data, error } = await sb.from("items").insert({ name }).select().single();
+  const { data, error } = await sb.from("items").insert({ name, list_id: currentList }).select().single();
   if (error) { toast("Couldn't add: " + error.message); $("newItem").value = name; return; }
-  if (!items.some(x => x.id === data.id)) items.push(data);
+  if (!items.some(x => x.id === data.id)) items.push({ ...data, tags: data.tags || [] });
   render();
   $("newItem").focus();
+});
+
+// Paste a whole list (one item per line) into the Add box to add them all at once
+$("newItem").addEventListener("paste", async e => {
+  const text = e.clipboardData ? e.clipboardData.getData("text") : "";
+  const names = text.split(/\r?\n/)
+    .map(s => s
+      .replace(/^\s*(?:[-*•◦▪☐☑✓✔]|\[\s?[xX]?\])\s+/, "")   // bullets and checkboxes
+      .replace(/^\s*\d+[.)]\s+/, "")                          // "1. " or "1) " numbering
+      .trim())
+    .filter(Boolean);
+  if (names.length < 2 || currentList === ALL) return;       // one line: normal paste
+  e.preventDefault();
+  const listName = lists.find(l => l.id === currentList)?.name || "this list";
+  if (!confirm(`Add ${names.length} items to ${listName}?`)) return;
+  const { data, error } = await sb.from("items")
+    .insert(names.map(name => ({ name, list_id: currentList }))).select();
+  if (error) { toast("Couldn't add: " + error.message, 4000); return; }
+  for (const d of data) if (!items.some(x => x.id === d.id)) items.push({ ...d, tags: d.tags || [] });
+  render();
+  toast(`Added ${data.length} items.`);
 });
 
 document.addEventListener("click", async e => {
@@ -343,7 +549,15 @@ document.addEventListener("click", async e => {
   const act = el.dataset.act;
   const id = el.dataset.id;
 
-  if (act === "toggle") {
+  if (act === "tab") {
+    currentList = id; render();
+  }
+  else if (act === "ftag") {
+    const k = el.dataset.tag;
+    selectedTags.has(k) ? selectedTags.delete(k) : selectedTags.add(k);
+    render();
+  }
+  else if (act === "toggle") {
     const it = items.find(x => x.id === id); if (!it) return;
     it.checked = !it.checked; render();                        // show it right away
     const { error } = await sb.from("items").update({ checked: it.checked }).eq("id", id);
@@ -351,6 +565,11 @@ document.addEventListener("click", async e => {
   }
   else if (act === "expand") {
     open.has(id) ? open.delete(id) : open.add(id); render();
+  }
+  else if (act === "untag") {
+    e.stopPropagation();
+    const it = items.find(x => x.id === id); if (!it) return;
+    await saveTags(it, it.tags.filter(t => t !== el.dataset.tag));
   }
   else if (act === "attach") {
     pickerItemId = id; $("filePicker").value = ""; $("filePicker").click();
@@ -383,9 +602,55 @@ function findAtt(attId) {
   return null;
 }
 
-// Save edits to name/note when you leave the box
+// Tags: add on Enter (or comma); also on leaving the box
+async function addTagFromInput(input) {
+  const it = items.find(x => x.id === input.dataset.tagadd); if (!it) return;
+  const parts = input.value.split(",").map(s => s.trim()).filter(Boolean);
+  input.value = "";
+  if (!parts.length) return;
+  const tags = [...it.tags];
+  for (const p of parts) {
+    // Reuse the spelling of an existing tag so "gift" and "Gift" stay one tag
+    const existing = allTags().find(([k]) => k === low(p));
+    const name = existing ? existing[1].name : p;
+    if (!tags.some(t => low(t) === low(name))) tags.push(name);
+  }
+  await saveTags(it, tags, input);
+}
+
+async function saveTags(it, tags, keepFocusOn) {
+  const before = it.tags;
+  it.tags = tags;
+  const { error } = await sb.from("items").update({ tags }).eq("id", it.id);
+  if (error) { it.tags = before; toast("Couldn't save tags: " + error.message); }
+  if (keepFocusOn) { keepFocusOn.blur(); }
+  render();
+  if (keepFocusOn) document.querySelector(`[data-tagadd="${it.id}"]`)?.focus();
+}
+
+document.addEventListener("keydown", e => {
+  const el = e.target;
+  if (el.dataset && el.dataset.tagadd && (e.key === "Enter" || e.key === ",")) {
+    e.preventDefault();
+    addTagFromInput(el);
+  }
+});
+
+// Save edits to name/note, tag box leftovers, and list moves
 document.addEventListener("change", async e => {
   const el = e.target;
+  if (el.dataset && el.dataset.tagadd) { if (el.value.trim()) addTagFromInput(el); return; }
+  if (el.dataset && el.dataset.move) {
+    const it = items.find(x => x.id === el.dataset.move); if (!it) return;
+    const to = el.value, from = it.list_id;
+    it.list_id = to;
+    const { error } = await sb.from("items").update({ list_id: to }).eq("id", it.id);
+    if (error) { it.list_id = from; toast("Couldn't move: " + error.message); }
+    else toast(`Moved to ${lists.find(l => l.id === to)?.name || "list"}`);
+    el.blur(); render();
+    return;
+  }
+  if (el.id === "matchAll") { savePref("matchAll", el.checked); render(); return; }
   if (!el.dataset || !el.dataset.edit) return;
   const field = el.dataset.edit, id = el.dataset.id;
   let value = field === "name" ? el.value.trim() : el.value;
@@ -396,10 +661,12 @@ document.addEventListener("change", async e => {
   if (error) toast("Couldn't save: " + error.message);
 });
 
+$("clearTagsBtn").addEventListener("click", () => { selectedTags.clear(); render(); });
+
 $("clearDoneBtn").addEventListener("click", async () => {
-  const done = items.filter(i => i.checked);
+  const done = items.filter(i => i.checked && i.list_id === currentList);
   if (!done.length) return;
-  if (!confirm(`Clear ${done.length} checked item(s)? Their photos/PDFs are deleted too.`)) return;
+  if (!confirm(`Clear ${done.length} checked item(s) from this list? Their photos/PDFs are deleted too.`)) return;
   await deleteItems(done.map(i => i.id));
 });
 
